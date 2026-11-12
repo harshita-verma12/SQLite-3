@@ -12,7 +12,7 @@ finally :
 
 cursor.execute("""
     CREATE TABLE IF NOT EXISTS students(
-      ID INT PRIMARY KEY AUTOINCREMENT,
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
       name VARCHAR(50),
       age INT NOT NULL
           )
@@ -31,4 +31,33 @@ rows = cursor.fetchall()
 for row in rows:
     print(row)
 conn.commit()
-conn.close()    
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS parents(
+     Id INTEGER PRIMARY KEY AUTOINCREMENT,
+     M.NAME VARCHAR(50) ,
+     F.NAME VARCHAR(50)
+)
+    
+        """)
+
+
+
+cursor.executemany(
+     "INSERT INTO parents(M.NAME , F.NAME)VALUES(?,?)",
+     [
+     ("MOTHER1","FATHER1") ,
+     ("MOTHER2" , "FATHER2") ,
+     ("MOTHER3" , "FATHER3")
+
+         
+     ]
+
+
+
+      )
+cursor.execute("SELECT * FROM parents")
+newtable = cursor.fetchall()
+for i in newtable:
+    print(i)
+conn.commit()    
